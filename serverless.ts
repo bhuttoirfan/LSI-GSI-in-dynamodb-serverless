@@ -71,6 +71,18 @@ const serverlessConfiguration: AWS = {
               },
             },
           ],
+          LocalSecondaryIndexes: [
+            {
+              IndexName: "YearIndex",
+              KeySchema: [
+                {AttributeName: "actor", KeyType: "HASH"},
+                {AttributeName: "year", KeyType: "RANGE"}
+              ],
+              Projection: {
+                ProjectionType: "ALL",
+              },
+            },
+          ],
           BillingMode: "PAY_PER_REQUEST"
         }
       }

@@ -1255,8 +1255,8 @@ var get_data = async (event) => {
     const p_data = event.body;
     const query = {
       TableName: "Media-Table",
-      IndexName: "GenreYearIndex",
-      KeyConditionExpression: "genre = :ac and #year = :yr",
+      IndexName: "YearIndex",
+      KeyConditionExpression: "actor = :ac and #year = :yr",
       ExpressionAttributeNames: {
         "#year": "year"
       },

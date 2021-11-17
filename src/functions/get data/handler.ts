@@ -40,14 +40,14 @@ const get_data: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event
     //   }
     // }
 
-    // Only role, year and movie attributes are returned
+    // Only role, year and movie columns are returned
     // const query = {
     //   TableName: "Media-Table",
     //   KeyConditionExpression: "actor = :ac",
     //   ProjectionExpression: "#rl, #yr, #mov",
     //   ExpressionAttributeNames: {
     //     "#rl": "role",
-    //     "#yr": "yr",
+    //     "#yr": "year",
     //     "#mov": "movie"
     //   },
     //   ExpressionAttributeValues: {
@@ -69,11 +69,26 @@ const get_data: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event
     //     ":ac" : p_data.actor
     //   }
     // }
+    
+    // Secondary Global Indexes to find movies which are of given genre and are released in a given year
+    // const query = {
+    //   TableName: "Media-Table",
+    //   IndexName: "GenreYearIndex",
+    //   KeyConditionExpression: "genre = :ac and #year = :yr",
+    //   ExpressionAttributeNames: {
+    //     "#year": "year"
+    //   },
+    //   ExpressionAttributeValues: {
+    //     ":ac" : p_data.actor,
+    //     ":yr": p_data.movie
+    //   }
+    // }
 
+    // Local Global Indexes to find movies which are of given actor name and are released in a given year
     const query = {
       TableName: "Media-Table",
-      IndexName: "GenreYearIndex",
-      KeyConditionExpression: "genre = :ac and #year = :yr",
+      IndexName: "YearIndex",
+      KeyConditionExpression: "actor = :ac and #year = :yr",
       ExpressionAttributeNames: {
         "#year": "year"
       },
