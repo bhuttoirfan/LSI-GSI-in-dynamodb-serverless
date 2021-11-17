@@ -2,6 +2,7 @@ import type { AWS } from '@serverless/typescript';
 
 import {post_data} from './src/functions';
 import {get_data} from './src/functions';
+import { delete_data } from './src/functions';
 
 const serverlessConfiguration: AWS = {
   service: 'serveless-and-dynamodb-queries',
@@ -21,7 +22,7 @@ const serverlessConfiguration: AWS = {
     lambdaHashingVersion: '20201221',
   },
   // import the function via paths
-  functions: { post_data, get_data },
+  functions: { post_data, get_data, delete_data },
   package: { individually: true },
   custom: {
     dynamodb: {

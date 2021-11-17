@@ -1246,6 +1246,9 @@ var DynamoDB2 = {
   async getData(params) {
     const actor_data = await dynamodb.query(params).promise();
     return actor_data;
+  },
+  async deleteData(params) {
+    await dynamodb.delete(params).promise();
   }
 };
 
