@@ -1,8 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 
-import {post_data} from './src/functions';
-import {get_data} from './src/functions';
-import { delete_data } from './src/functions';
+import { post_data, get_data, delete_data } from './src/functions';
 
 const serverlessConfiguration: AWS = {
   service: 'serveless-and-dynamodb-queries',

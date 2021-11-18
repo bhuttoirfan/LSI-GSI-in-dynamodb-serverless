@@ -71,10 +71,22 @@
         }
       }
     },
-    "HelloLogGroup": {
+    "PostUnderscoredataLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/serveless-and-dynamodb-queries-dev-hello"
+        "LogGroupName": "/aws/lambda/serveless-and-dynamodb-queries-dev-post_data"
+      }
+    },
+    "GetUnderscoredataLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/serveless-and-dynamodb-queries-dev-get_data"
+      }
+    },
+    "DeleteUnderscoredataLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/serveless-and-dynamodb-queries-dev-delete_data"
       }
     },
     "IamRoleLambdaExecution": {
@@ -154,18 +166,18 @@
         }
       }
     },
-    "HelloLambdaFunction": {
+    "PostUnderscoredataLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serveless-and-dynamodb-queries/dev/1637048897898-2021-11-16T07:48:17.898Z/serveless-and-dynamodb-queries-dev-hello.zip"
+          "S3Key": "serverless/serveless-and-dynamodb-queries/dev/1637223534019-2021-11-18T08:18:54.019Z/serveless-and-dynamodb-queries-dev-post_data.zip"
         },
         "Handler": "src/functions/post data/handler.main",
         "Runtime": "nodejs14.x",
-        "FunctionName": "serveless-and-dynamodb-queries-dev-hello",
+        "FunctionName": "serveless-and-dynamodb-queries-dev-post_data",
         "MemorySize": 1024,
         "Timeout": 6,
         "Environment": {
@@ -182,17 +194,99 @@
         }
       },
       "DependsOn": [
-        "HelloLogGroup"
+        "PostUnderscoredataLogGroup"
       ]
     },
-    "HelloLambdaVersionAO1GRCXuxxrY21Mwxms8iCBMsUqvpu2RSYEcA9AAlBk": {
+    "GetUnderscoredataLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/serveless-and-dynamodb-queries/dev/1637223534019-2021-11-18T08:18:54.019Z/serveless-and-dynamodb-queries-dev-get_data.zip"
+        },
+        "Handler": "src/functions/get data/handler.main",
+        "Runtime": "nodejs14.x",
+        "FunctionName": "serveless-and-dynamodb-queries-dev-get_data",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "GetUnderscoredataLogGroup"
+      ]
+    },
+    "DeleteUnderscoredataLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/serveless-and-dynamodb-queries/dev/1637223534019-2021-11-18T08:18:54.019Z/serveless-and-dynamodb-queries-dev-delete_data.zip"
+        },
+        "Handler": "src/functions/delete data/handler.main",
+        "Runtime": "nodejs14.x",
+        "FunctionName": "serveless-and-dynamodb-queries-dev-delete_data",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "DeleteUnderscoredataLogGroup"
+      ]
+    },
+    "PostUnderscoredataLambdaVersionA4ZRhJrPvZu1bWMrToIofmrdtDmuR7Ej1OdeUvCD4U": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "HelloLambdaFunction"
+          "Ref": "PostUnderscoredataLambdaFunction"
         },
-        "CodeSha256": "QIO6TnehYEy/jlBCHkFYv35wUDcpFhWEtCWJ4yuu0a0="
+        "CodeSha256": "nDm4wC7U+kirPJ7fIu9WptXy2mII/qUoHrFZ/ziLuw8="
+      }
+    },
+    "GetUnderscoredataLambdaVersionTICLarjOzrJZmly4vdEt4to2U588rH73hYuAWl8": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "GetUnderscoredataLambdaFunction"
+        },
+        "CodeSha256": "U4ey4hqCR7OQOFBiBsdJfANiUIPrzaqtI7wp+2R5iN8="
+      }
+    },
+    "DeleteUnderscoredataLambdaVersionq7s5Nhj2x4KyCNEklfzcTYSXOAed0qsnqTpK6RIA": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "DeleteUnderscoredataLambdaFunction"
+        },
+        "CodeSha256": "HX4ONZklN6cbgmipn3vZ501zu0bn8rTbuM0EA3RdRqQ="
       }
     },
     "ApiGatewayRestApi": {
@@ -208,7 +302,7 @@
         "MinimumCompressionSize": 1024
       }
     },
-    "ApiGatewayResourceHello": {
+    "ApiGatewayResourceAdddata": {
       "Type": "AWS::ApiGateway::Resource",
       "Properties": {
         "ParentId": {
@@ -217,19 +311,49 @@
             "RootResourceId"
           ]
         },
-        "PathPart": "hello",
+        "PathPart": "addData",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
       }
     },
-    "ApiGatewayMethodHelloPost": {
+    "ApiGatewayResourceGetdata": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "getData",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceDeletedata": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "deleteData",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodAdddataPost": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "HttpMethod": "POST",
         "RequestParameters": {},
         "ResourceId": {
-          "Ref": "ApiGatewayResourceHello"
+          "Ref": "ApiGatewayResourceAdddata"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -254,7 +378,7 @@
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "HelloLambdaFunction",
+                    "PostUnderscoredataLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -269,12 +393,120 @@
         },
         "RequestModels": {
           "application/json": {
-            "Ref": "ApiGatewayMethodHelloPostApplicationJsonModel"
+            "Ref": "ApiGatewayMethodAdddataPostApplicationJsonModel"
           }
         }
       },
       "DependsOn": [
-        "HelloLambdaPermissionApiGateway"
+        "PostUnderscoredataLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayMethodGetdataPost": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceGetdata"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "GetUnderscoredataLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": [],
+        "RequestValidatorId": {
+          "Ref": "ApiGatewayServelessanddynamodbqueriesRequestValidator"
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiGatewayMethodGetdataPostApplicationJsonModel"
+          }
+        }
+      },
+      "DependsOn": [
+        "GetUnderscoredataLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayMethodDeletedataDelete": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "DELETE",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceDeletedata"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "DeleteUnderscoredataLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": [],
+        "RequestValidatorId": {
+          "Ref": "ApiGatewayServelessanddynamodbqueriesRequestValidator"
+        },
+        "RequestModels": {
+          "application/json": {
+            "Ref": "ApiGatewayMethodDeletedataDeleteApplicationJsonModel"
+          }
+        }
+      },
+      "DependsOn": [
+        "DeleteUnderscoredataLambdaPermissionApiGateway"
       ]
     },
     "ApiGatewayServelessanddynamodbqueriesRequestValidator": {
@@ -288,7 +520,7 @@
         "Name": "serveless-and-dynamodb-queries-dev | Validate request body and querystring parameters"
       }
     },
-    "ApiGatewayMethodHelloPostApplicationJsonModel": {
+    "ApiGatewayMethodAdddataPostApplicationJsonModel": {
       "Type": "AWS::ApiGateway::Model",
       "Properties": {
         "RestApiId": {
@@ -298,17 +530,79 @@
         "Schema": {
           "type": "object",
           "properties": {
-            "name": {
+            "actor": {
+              "type": "string"
+            },
+            "movie": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            },
+            "year": {
+              "type": "string"
+            },
+            "genre": {
               "type": "string"
             }
           },
           "required": [
-            "name"
+            "actor",
+            "movie",
+            "role"
           ]
         }
       }
     },
-    "ApiGatewayDeployment1637048894519": {
+    "ApiGatewayMethodGetdataPostApplicationJsonModel": {
+      "Type": "AWS::ApiGateway::Model",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ContentType": "application/json",
+        "Schema": {
+          "type": "object",
+          "properties": {
+            "actor": {
+              "type": "string"
+            },
+            "movie": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "actor",
+            "movie"
+          ]
+        }
+      }
+    },
+    "ApiGatewayMethodDeletedataDeleteApplicationJsonModel": {
+      "Type": "AWS::ApiGateway::Model",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ContentType": "application/json",
+        "Schema": {
+          "type": "object",
+          "properties": {
+            "actor": {
+              "type": "string"
+            },
+            "movie": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "actor",
+            "movie"
+          ]
+        }
+      }
+    },
+    "ApiGatewayDeployment1637223530504": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -317,15 +611,91 @@
         "StageName": "dev"
       },
       "DependsOn": [
-        "ApiGatewayMethodHelloPost"
+        "ApiGatewayMethodAdddataPost",
+        "ApiGatewayMethodGetdataPost",
+        "ApiGatewayMethodDeletedataDelete"
       ]
     },
-    "HelloLambdaPermissionApiGateway": {
+    "PostUnderscoredataLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "HelloLambdaFunction",
+            "PostUnderscoredataLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "GetUnderscoredataLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GetUnderscoredataLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "DeleteUnderscoredataLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "DeleteUnderscoredataLambdaFunction",
             "Arn"
           ]
         },
@@ -369,6 +739,14 @@
           {
             "AttributeName": "movie",
             "AttributeType": "S"
+          },
+          {
+            "AttributeName": "genre",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "year",
+            "AttributeType": "S"
           }
         ],
         "KeySchema": [
@@ -378,7 +756,43 @@
           },
           {
             "AttributeName": "movie",
-            "AttributeType": "RANGE"
+            "KeyType": "RANGE"
+          }
+        ],
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "GenreYearIndex",
+            "KeySchema": [
+              {
+                "AttributeName": "genre",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "year",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          }
+        ],
+        "LocalSecondaryIndexes": [
+          {
+            "IndexName": "YearIndex",
+            "KeySchema": [
+              {
+                "AttributeName": "actor",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "year",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
           }
         ],
         "BillingMode": "PAY_PER_REQUEST"
@@ -394,13 +808,31 @@
         "Name": "sls-serveless-and-dynamodb-queries-dev-ServerlessDeploymentBucketName"
       }
     },
-    "HelloLambdaFunctionQualifiedArn": {
+    "PostUnderscoredataLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HelloLambdaVersionAO1GRCXuxxrY21Mwxms8iCBMsUqvpu2RSYEcA9AAlBk"
+        "Ref": "PostUnderscoredataLambdaVersionA4ZRhJrPvZu1bWMrToIofmrdtDmuR7Ej1OdeUvCD4U"
       },
       "Export": {
-        "Name": "sls-serveless-and-dynamodb-queries-dev-HelloLambdaFunctionQualifiedArn"
+        "Name": "sls-serveless-and-dynamodb-queries-dev-PostUnderscoredataLambdaFunctionQualifiedArn"
+      }
+    },
+    "GetUnderscoredataLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "GetUnderscoredataLambdaVersionTICLarjOzrJZmly4vdEt4to2U588rH73hYuAWl8"
+      },
+      "Export": {
+        "Name": "sls-serveless-and-dynamodb-queries-dev-GetUnderscoredataLambdaFunctionQualifiedArn"
+      }
+    },
+    "DeleteUnderscoredataLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "DeleteUnderscoredataLambdaVersionq7s5Nhj2x4KyCNEklfzcTYSXOAed0qsnqTpK6RIA"
+      },
+      "Export": {
+        "Name": "sls-serveless-and-dynamodb-queries-dev-DeleteUnderscoredataLambdaFunctionQualifiedArn"
       }
     },
     "ServiceEndpoint": {
