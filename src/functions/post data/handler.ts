@@ -8,19 +8,52 @@ import schema from './schema';
 
 const post_data: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
   try {
-    const data = event.body;
+    // const data = event.body;
+
+    // const query = {
+    //   TableName: 'Media-Table',
+    //   Item: {
+    //     ...data
+    //   }
+    // }
+
+
+
+    
+      let actor = "naveed"
+      let movie = "kaha hai khan"
+      let role = "hero"
+      let year = "2021"
+      let genre =  "action"
+      let array =  [
+        {
+          name: "Irfan",
+          age: 16
+        },
+        {
+          name: "naveed",
+          age: 80
+        }
+      ]
+    
 
     const query = {
       TableName: 'Media-Table',
       Item: {
-        ...data
+        actor,
+        movie,
+        year,
+        role,
+        genre,
+        array
       }
     }
 
     await DynamoDB.addData(query);
 
     return formatJSONResponse({
-      message: "Data Added"
+      message: "Data Added",
+      query
     });
   } catch (err) {
     console.log(err);

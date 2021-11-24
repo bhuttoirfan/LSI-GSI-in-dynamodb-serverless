@@ -50,7 +50,7 @@ const get_data: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event
     //     "#yr": "year",
     //     "#mov": "movie"
     //   },
-    //   ExpressionAttributeValues: {
+    //   ExpressionAttributeValues: { 
     //     ":ac" : p_data.actor
     //   }
     // }
@@ -94,7 +94,7 @@ const get_data: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event
       },
       ExpressionAttributeValues: {
         ":ac" : p_data.actor,
-        ":yr": p_data.movie
+      
       }
     }
 
@@ -105,7 +105,7 @@ const get_data: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event
       data
     });
   } catch (err) {
-    console.log(err);
+    return err
   }
 }
 

@@ -1241,7 +1241,7 @@ var dynamodb = new AWS.DynamoDB.DocumentClient({
 });
 var DynamoDB2 = {
   async addData(params) {
-    await dynamodb.put(params).promise();
+    return await dynamodb.put(params).promise();
   },
   async getData(params) {
     const actor_data = await dynamodb.query(params).promise();
@@ -1264,8 +1264,7 @@ var get_data = async (event) => {
         "#year": "year"
       },
       ExpressionAttributeValues: {
-        ":ac": p_data.actor,
-        ":yr": p_data.movie
+        ":ac": p_data.actor
       }
     };
     const data = await DynamoDB2.getData(query);
@@ -1273,7 +1272,7 @@ var get_data = async (event) => {
       data
     });
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
 var main = middyfy(get_data);

@@ -8,7 +8,7 @@ const dynamodb = new AWS.DynamoDB.DocumentClient({
 export const DynamoDB = {
 
     async addData(params) {
-        await dynamodb.put(params).promise();
+        return await dynamodb.put(params).promise();
     },
     async getData(params) {
        const actor_data = await dynamodb.query(params).promise();

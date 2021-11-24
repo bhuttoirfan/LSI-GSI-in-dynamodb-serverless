@@ -2,22 +2,8 @@ var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
@@ -1255,7 +1241,7 @@ var dynamodb = new AWS.DynamoDB.DocumentClient({
 });
 var DynamoDB2 = {
   async addData(params) {
-    await dynamodb.put(params).promise();
+    return await dynamodb.put(params).promise();
   },
   async getData(params) {
     const actor_data = await dynamodb.query(params).promise();
@@ -1269,14 +1255,36 @@ var DynamoDB2 = {
 // src/functions/post data/handler.ts
 var post_data = async (event) => {
   try {
-    const data = event.body;
+    let actor = "naveed";
+    let movie = "kaha hai khan";
+    let role = "hero";
+    let year = "2021";
+    let genre = "action";
+    let array = [
+      {
+        name: "Irfan",
+        age: 16
+      },
+      {
+        name: "naveed",
+        age: 80
+      }
+    ];
     const query = {
       TableName: "Media-Table",
-      Item: __spreadValues({}, data)
+      Item: {
+        actor,
+        movie,
+        year,
+        role,
+        genre,
+        array
+      }
     };
     await DynamoDB2.addData(query);
     return formatJSONResponse({
-      message: "Data Added"
+      message: "Data Added",
+      query
     });
   } catch (err) {
     console.log(err);
